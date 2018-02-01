@@ -1,39 +1,41 @@
----
-title: "R Notebook"
-output: html_notebook
----
+# Final Project
+## By: Kevin Chen
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-
-```{r}
+#Download data:
+```{r,eval=FALSE}
 temp = tempfile(fileext = ".xls") 
 dataURL <- "https://github.com/chjy0205/data/blob/master/Community%20Reporting%20Areas.xls?raw=true" 
 download.file(dataURL, destfile=temp, mode='wb') 
 ```
-```{r}
+#Select data
+```{r,eval=FALSE}
 AreaAcre=read_excel(temp,1,na='.')[,c(1:7,8)]
 AreaAcre=as.data.frame(AreaAcre)
 names(AreaAcre)
 ```
-```{r}
+
+```{r,eval=FALSE}
 AreaAcreCommunity=AreaAcre
 head(AreaAcreCommunity)
 str(AreaAcreCommunity)
 summary(AreaAcreCommunity$`Area Acres`)
 ```
-```{r}
+#Get Dispersion
+```{r,eval=FALSE}
 library(moments)
 sd(AreaAcreCommunity$`Area Acres`,na.rm = T)
 sd(AreaAcreCommunity$`Area Acres`,na.rm = T)/mean(AreaAcreCommunity$`Area Acres`,na.rm = T)
+```
+#Skewness
+```{r,eval=FALSE}
 skewness(AreaAcreCommunity$`Area Acres`,na.rm = T)
 ```
-```{r}
+#Kurtosis
+```{r,eval=FALSE}
 kurtosis(AreaAcreCommunity$`Area Acres`,na.rm = T)
 ```
-```{r}
+#Plot
+```{r,eval=FALSE}
 data=AreaAcreCommunity[is.finite(AreaAcreCommunity$`Area Acres`),]
 var=data$`Area Acres`
 mnVar=mean(var, na.rm=T)
@@ -50,27 +52,31 @@ histAndNormal = hist + stat_function(fun=dnorm,
 histAndNormal
 ```
 #Second variable
-```{r}
+```{r,eval=FALSE}
 Population=read_excel(temp,1,na='.')[,c(1:7,10)]
 Population=as.data.frame(Population)
 names(Population)
 ```
-```{r}
+
+```{r,eval=FALSE}
 PopulationCommunity=Population
 head(PopulationCommunity)
 str(PopulationCommunity)
 summary(PopulationCommunity$`Total population`)
 ```
-```{r}
+
+```{r,eval=FALSE}
 library(moments)
 sd(PopulationCommunity$`Total population`,na.rm = T)
 sd(PopulationCommunity$`Total population`,na.rm = T)/mean(PopulationCommunity$`Total population`,na.rm = T)
 skewness(PopulationCommunity$`Total population`,na.rm = T)
 ```
-```{r}
+
+```{r,eval=FALSE}
 kurtosis(PopulationCommunity$`Total population`,na.rm = T)
 ```
-```{r}
+
+```{r,eval=FALSE}
 data=PopulationCommunity[is.finite(PopulationCommunity$`Total population`),]
 var=data$`Total population`
 mnVar=mean(var, na.rm=T)
@@ -87,11 +93,3 @@ histAndNormal = hist + stat_function(fun=dnorm,
 histAndNormal
 ```
 ```
-
-
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
