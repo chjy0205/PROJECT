@@ -33,7 +33,13 @@ cor(community[explanans])
 ```
 
 ```{r}
+row.names(community)=community$Community.Reporting.Area.Name
+```
 
+```{r}
+LinRegEPI=lm(community$Median.household.income..dollars.~ Percent.of.Population.of.Color + Percent.Bachelor.degree.or.higher, data = community)
+
+summary(LinRegEPI)
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
