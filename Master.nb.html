@@ -174,7 +174,7 @@ $(document).ready(function () {
 
 <!-- rnb-text-begin -->
 <p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
+<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>. # Get demographic data from community report</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tbXVuaXR5PXJlYWQuY3N2KCdodHRwczovL2dpdGh1Yi5jb20vY2hqeTAyMDUvZGF0YS9yYXcvbWFzdGVyL0NvbW11bml0eSUyMFJlcG9ydGluZyUyMEFyZWFzLmNzdicsc3RyaW5nc0FzRmFjdG9ycyA9IEYpXG5gYGAifQ== -->
@@ -182,6 +182,8 @@ $(document).ready(function () {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="verify-data-types" class="section level1">
+<h1>Verify data types</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGNvbW11bml0eSlcbmBgYCJ9 -->
@@ -189,6 +191,11 @@ $(document).ready(function () {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="linear-regression" class="section level1">
+<h1>Linear Regression</h1>
+<div id="check-the-data" class="section level3">
+<h3>Check the data</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlzdChjb21tdW5pdHkkTWVkaWFuLmhvdXNlaG9sZC5pbmNvbWUuLmRvbGxhcnMuKVxuYGBgIn0= -->
@@ -196,6 +203,9 @@ $(document).ready(function () {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="verify-that-each-variable-in-x-has-a-linear-relationship-with-y." class="section level3">
+<h3>Verify that each variable in X has a linear relationship with Y.</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZXhwbGFuYW5zPW5hbWVzKGNvbW11bml0eSlbYygxMSwxNSldXG5mb3IgKHggaW4gZXhwbGFuYW5zKXtcbiAgICBwYXI9Y2JpbmQoY29tbXVuaXR5Wyx4XSxjb21tdW5pdHkkTWVkaWFuLmhvdXNlaG9sZC5pbmNvbWUuLmRvbGxhcnMuKVxuICAgIHA9Y29yLnRlc3QoY29tbXVuaXR5Wyx4XSxjb21tdW5pdHkkTWVkaWFuLmhvdXNlaG9sZC5pbmNvbWUuLmRvbGxhcnMuKVxuICAgIHByaW50KHBhc3RlKFwiUGVhcnNvbjpcIixwJGVzdGltYXRlLFwiIC0gSXMgc2lnbmlmaWNhdGl2ZT9cIixwJHAudmFsdWU8MC4wNSkpXG59XG5gYGAifQ== -->
@@ -208,6 +218,9 @@ for (x in explanans){
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="check-the-correlation-between-each-pair-of-x-variables." class="section level3">
+<h3>Check the correlation between each pair of X variables.</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29yKGNvbW11bml0eVtleHBsYW5hbnNdKVxuYGBgIn0= -->
@@ -215,6 +228,9 @@ for (x in explanans){
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="set-the-row-names-with-the-community-names." class="section level3">
+<h3>Set the row names with the community names.</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm93Lm5hbWVzKGNvbW11bml0eSk9Y29tbXVuaXR5JENvbW11bml0eS5SZXBvcnRpbmcuQXJlYS5OYW1lXG5gYGAifQ== -->
@@ -222,6 +238,9 @@ for (x in explanans){
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="request-a-linear-regression-model-and-check-the-detailed-result." class="section level3">
+<h3>Request a linear regression model and check the detailed result.</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTGluUmVnRVBJPWxtKGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy5+IFBlcmNlbnQub2YuUG9wdWxhdGlvbi5vZi5Db2xvciArIFBlcmNlbnQuQmFjaGVsb3IuZGVncmVlLm9yLmhpZ2hlciwgZGF0YSA9IGNvbW11bml0eSlcbnN1bW1hcnkoTGluUmVnRVBJKVxuYGBgIn0= -->
@@ -269,8 +288,10 @@ F-statistic: 21.06 on 2 and 50 DF,  p-value: 2.316e-07</code></pre>
 <p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
 <p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
 <!-- rnb-text-end -->
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpjb21tdW5pdHk9cmVhZC5jc3YoJ2h0dHBzOi8vZ2l0aHViLmNvbS9jaGp5MDIwNS9kYXRhL3Jhdy9tYXN0ZXIvQ29tbXVuaXR5JTIwUmVwb3J0aW5nJTIwQXJlYXMuY3N2JyxzdHJpbmdzQXNGYWN0b3JzID0gRikNCmBgYA0KDQpgYGB7cn0NCnN0cihjb21tdW5pdHkpDQpgYGANCg0KYGBge3J9DQpoaXN0KGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy4pDQpgYGANCg0KYGBge3J9DQpleHBsYW5hbnM9bmFtZXMoY29tbXVuaXR5KVtjKDExLDE1KV0NCmZvciAoeCBpbiBleHBsYW5hbnMpew0KICAgIHBhcj1jYmluZChjb21tdW5pdHlbLHhdLGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy4pDQogICAgcD1jb3IudGVzdChjb21tdW5pdHlbLHhdLGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy4pDQogICAgcHJpbnQocGFzdGUoIlBlYXJzb246IixwJGVzdGltYXRlLCIgLSBJcyBzaWduaWZpY2F0aXZlPyIscCRwLnZhbHVlPDAuMDUpKQ0KfQ0KYGBgDQoNCmBgYHtyfQ0KY29yKGNvbW11bml0eVtleHBsYW5hbnNdKQ0KYGBgDQoNCmBgYHtyfQ0Kcm93Lm5hbWVzKGNvbW11bml0eSk9Y29tbXVuaXR5JENvbW11bml0eS5SZXBvcnRpbmcuQXJlYS5OYW1lDQpgYGANCg0KYGBge3J9DQpMaW5SZWdFUEk9bG0oY29tbXVuaXR5JE1lZGlhbi5ob3VzZWhvbGQuaW5jb21lLi5kb2xsYXJzLn4gUGVyY2VudC5vZi5Qb3B1bGF0aW9uLm9mLkNvbG9yICsgUGVyY2VudC5CYWNoZWxvci5kZWdyZWUub3IuaGlnaGVyLCBkYXRhID0gY29tbXVuaXR5KQ0KDQpzdW1tYXJ5KExpblJlZ0VQSSkNCmBgYA0KDQpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouDQoNCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ3RybCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLg0KDQpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6DQogIHBkZl9kb2N1bWVudDogZGVmYXVsdA0KICBodG1sX25vdGVib29rOiBkZWZhdWx0DQotLS0NCg0KVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gDQoNClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDdHJsK1NoaWZ0K0VudGVyKi4gDQojIEdldCBkZW1vZ3JhcGhpYyBkYXRhIGZyb20gY29tbXVuaXR5IHJlcG9ydA0KYGBge3J9DQpjb21tdW5pdHk9cmVhZC5jc3YoJ2h0dHBzOi8vZ2l0aHViLmNvbS9jaGp5MDIwNS9kYXRhL3Jhdy9tYXN0ZXIvQ29tbXVuaXR5JTIwUmVwb3J0aW5nJTIwQXJlYXMuY3N2JyxzdHJpbmdzQXNGYWN0b3JzID0gRikNCmBgYA0KIyBWZXJpZnkgZGF0YSB0eXBlcw0KYGBge3J9DQpzdHIoY29tbXVuaXR5KQ0KYGBgDQojIExpbmVhciBSZWdyZXNzaW9uDQojIyMgQ2hlY2sgdGhlIGRhdGENCmBgYHtyfQ0KaGlzdChjb21tdW5pdHkkTWVkaWFuLmhvdXNlaG9sZC5pbmNvbWUuLmRvbGxhcnMuKQ0KYGBgDQojIyMgVmVyaWZ5IHRoYXQgZWFjaCB2YXJpYWJsZSBpbiBYIGhhcyBhIGxpbmVhciByZWxhdGlvbnNoaXAgd2l0aCBZLg0KYGBge3J9DQpleHBsYW5hbnM9bmFtZXMoY29tbXVuaXR5KVtjKDExLDE1KV0NCmZvciAoeCBpbiBleHBsYW5hbnMpew0KICAgIHBhcj1jYmluZChjb21tdW5pdHlbLHhdLGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy4pDQogICAgcD1jb3IudGVzdChjb21tdW5pdHlbLHhdLGNvbW11bml0eSRNZWRpYW4uaG91c2Vob2xkLmluY29tZS4uZG9sbGFycy4pDQogICAgcHJpbnQocGFzdGUoIlBlYXJzb246IixwJGVzdGltYXRlLCIgLSBJcyBzaWduaWZpY2F0aXZlPyIscCRwLnZhbHVlPDAuMDUpKQ0KfQ0KYGBgDQojIyMgQ2hlY2sgdGhlIGNvcnJlbGF0aW9uIGJldHdlZW4gZWFjaCBwYWlyIG9mIFggdmFyaWFibGVzLg0KYGBge3J9DQpjb3IoY29tbXVuaXR5W2V4cGxhbmFuc10pDQpgYGANCiMjIyBTZXQgdGhlIHJvdyBuYW1lcyB3aXRoIHRoZSBjb21tdW5pdHkgbmFtZXMuDQpgYGB7cn0NCnJvdy5uYW1lcyhjb21tdW5pdHkpPWNvbW11bml0eSRDb21tdW5pdHkuUmVwb3J0aW5nLkFyZWEuTmFtZQ0KYGBgDQojIyMgUmVxdWVzdCBhIGxpbmVhciByZWdyZXNzaW9uIG1vZGVsIGFuZCBjaGVjayB0aGUgZGV0YWlsZWQgcmVzdWx0Lg0KYGBge3J9DQpMaW5SZWdJTkNPTUU9bG0oY29tbXVuaXR5JE1lZGlhbi5ob3VzZWhvbGQuaW5jb21lLi5kb2xsYXJzLn4gUGVyY2VudC5vZi5Qb3B1bGF0aW9uLm9mLkNvbG9yICsgUGVyY2VudC5CYWNoZWxvci5kZWdyZWUub3IuaGlnaGVyLCBkYXRhID0gY29tbXVuaXR5KQ0KDQpzdW1tYXJ5KExpblJlZ0lOQ09NRSkNCmBgYA0KDQpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouDQoNCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ3RybCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLg0KDQpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuDQo=</div>
 
 
 

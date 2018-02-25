@@ -1,24 +1,27 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
+# Get demographic data from community report
 ```{r}
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
-
+# Verify data types
 ```{r}
 str(community)
 ```
-
+# Linear Regression
+### Check the data
 ```{r}
 hist(community$Median.household.income..dollars.)
 ```
-
+### Verify that each variable in X has a linear relationship with Y.
 ```{r}
 explanans=names(community)[c(11,15)]
 for (x in explanans){
@@ -27,19 +30,19 @@ for (x in explanans){
     print(paste("Pearson:",p$estimate," - Is significative?",p$p.value<0.05))
 }
 ```
-
+### Check the correlation between each pair of X variables.
 ```{r}
 cor(community[explanans])
 ```
-
+### Set the row names with the community names.
 ```{r}
 row.names(community)=community$Community.Reporting.Area.Name
 ```
-
+### Request a linear regression model and check the detailed result.
 ```{r}
-LinRegEPI=lm(community$Median.household.income..dollars.~ Percent.of.Population.of.Color + Percent.Bachelor.degree.or.higher, data = community)
+LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Population.of.Color + Percent.Bachelor.degree.or.higher, data = community)
 
-summary(LinRegEPI)
+summary(LinRegINCOME)
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
