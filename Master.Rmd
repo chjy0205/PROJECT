@@ -16,6 +16,46 @@ community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Repo
 ```{r}
 str(community)
 ```
+# Univariate data analysis
+# Centrality
+```{r}
+summary(community$Median.household.income..dollars.)
+```
+# Dispersion
+```{r}
+library(moments)
+sd(community$Median.household.income..dollars.,na.rm= T)
+sd(community$Median.household.income..dollars.,na.rm =T)/mean(community$Median.household.income..dollars.,na.rm =T)
+```
+# Skewness
+```{r}
+skewness(community$Median.household.income..dollars.,na.rm=T)
+```
+# Kurtosis
+```{r}
+kurtosis(community$Median.household.income..dollars.,na.rm = T)
+
+data=community[is.finite(community$Median.household.income..dollars.),]
+var=data$Median.household.income..dollars.
+mnVar=mean(var,na.rm = T)
+sdVar=sd(var,na.rm = T)
+
+library(ggplot2)
+
+base=ggplot(data, aes(x=var))
+hist = base + geom_histogram(fill="green", 
+                             color='grey',
+                          aes(y=..density..))
+histAndNormal = hist + stat_function(fun=dnorm,
+                                     color="red",
+                                     args=list(mean=mnVar,sd=sdVar))
+
+histAndNormal
+
+```
+
+
+
 # Linear Regression
 ### Check the data
 ```{r}
