@@ -51,8 +51,18 @@ histAndNormal = hist + stat_function(fun=dnorm,
                                      args=list(mean=mnVar,sd=sdVar))
 
 histAndNormal
-
 ```
+
+```{r}
+mdVar=median(var)
+histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
+                           show.legend  = TRUE) + 
+                geom_vline(aes(xintercept = mdVar,colour="median"),
+                           show.legend  = TRUE) + 
+                scale_color_manual(name = "centrals", 
+                                   values = c(median = "blue", mean = "red"))
+```
+
 
 
 
