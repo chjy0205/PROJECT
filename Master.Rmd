@@ -63,7 +63,23 @@ histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
                                    values = c(median = "blue", mean = "red"))
 ```
 
+# Clustering
+```{r}
+length(community$Community.Reporting.Area.Name)==length(unique(community$Community.Reporting.Area.Name))
 
+row.names(community)=community$Community.Reporting.Area.Name
+
+str(community[,c(11,15,21)])
+
+library(cluster)
+incoSimi=daisy(community[,c(11,15,21)],metric = "euclidean",
+               stand=TRUE)
+incoClus=hclust(incoSimi,method = 'average')
+plot(incoClus,cex=0.5)
+
+plot(incoClus,cex=0.3)
+rect.hclust(incoClus, k = 3,border = c('orange','blue','red'))
+```
 
 
 # Linear Regression
@@ -95,7 +111,107 @@ LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Populati
 summary(LinRegINCOME)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+# Map
+```{r}
+(maps=list.files(pattern = 'shp'))
+
+library(rgdal)
+SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
+
+
+```
+## Merge two tables
+```{r}
+str(SeattleMap$S_HOOD)
+str(community$Community.Reporting.Area.Name)
+
+MSeattleMap=merge(SeattleMap,community, by.x='S_HOOD', by.y='Community.Reporting.Area.Name',all.x=F)
+nrow(MSeattleMap)
+```
+
+```{r}
+plot(SeattleMap, col='black')
+plot(MSeattleMap, col='pink',border='grey',add=T)
+```
+## Define the input
+```{r}
+library(RColorBrewer)
+library(classInt)
+varToPlot=MSeattleMap$Percent.of.Population.of.Color
+varToPlot2=MSeattleMap$Percent.Bachelor.degree.or.higher
+varToPlot3=MSeattleMap$Median.household.income..dollars.
+```
+## Get colors and intervals
+```{r}
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+```
+## Plot variable1
+```{r}
+legendText="Population of color in Percent"
+shrinkLegend=0.6
+title="Population of color in Percent in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
+## Plot variable2
+```{r}
+
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot2, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+
+
+legendText="Bachelor Degree or higher in Percent"
+shrinkLegend=0.6
+title="Population with bachelor degree or higher in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
+## Plot variable3
+```{r}
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot3, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+
+
+legendText="Median income in dollar"
+shrinkLegend=0.6
+title="Median income in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
