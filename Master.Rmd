@@ -134,6 +134,7 @@ summary(LinRegINCOME3)
 This result is statistically significant which indicates that holding all other factors constant, one percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
 
 # Map
+It is more obvious to see the distribution of three variables on the map.
 ```{r}
 (maps=list.files(pattern = 'shp'))
 
@@ -187,6 +188,8 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+Population of color are mainly distributed in the south part of Seattle.
+
 ### Plot variable2
 ```{r}
 
@@ -211,6 +214,8 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+Communities in the north Seattle have higher ratio of residents holding bachelor degree or higher. Compared with last plot, south Seattle communities have much lower ratios of bachelor degree or higher residents.
+
 ### Plot variable3
 ```{r}
 numberOfClasses = 3
@@ -222,7 +227,7 @@ intervals <- classIntervals(varToPlot3, numberOfClasses,
 colorPallette <- findColours(intervals, colors)
 
 
-legendText="Median income in dollar"
+legendText="Median household income in dollar"
 shrinkLegend=0.6
 title="Median income in Seattle 2013"
 
@@ -234,6 +239,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+The median household income roughly obey the trend showed in last two plots. Higher median household income appears more in north Seattle. South Seattle communities often have lower median household income.
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
