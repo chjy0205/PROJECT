@@ -8,30 +8,31 @@ output:
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-# Get demographic data from community report
+# Univariate analysis
+### Get demographic data from community report
 ```{r}
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
-# Verify data types
+### Verify data types
 ```{r}
 str(community)
 ```
-# Univariate data analysis
-# Centrality
+### Univariate data analysis
+### Centrality
 ```{r}
 summary(community$Median.household.income..dollars.)
 ```
-# Dispersion
+### Dispersion
 ```{r}
 library(moments)
 sd(community$Median.household.income..dollars.,na.rm= T)
 sd(community$Median.household.income..dollars.,na.rm =T)/mean(community$Median.household.income..dollars.,na.rm =T)
 ```
-# Skewness
+### Skewness
 ```{r}
 skewness(community$Median.household.income..dollars.,na.rm=T)
 ```
-# Kurtosis
+### Kurtosis
 ```{r}
 kurtosis(community$Median.household.income..dollars.,na.rm = T)
 
@@ -135,7 +136,7 @@ SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
 
 
 ```
-## Merge two tables
+### Merge two tables
 ```{r}
 str(SeattleMap$S_HOOD)
 str(community$Community.Reporting.Area.Name)
@@ -148,7 +149,7 @@ nrow(MSeattleMap)
 plot(SeattleMap, col='black')
 plot(MSeattleMap, col='pink',border='grey',add=T)
 ```
-## Define the input
+### Define the input
 ```{r}
 library(RColorBrewer)
 library(classInt)
@@ -156,7 +157,7 @@ varToPlot=MSeattleMap$Percent.of.Population.of.Color
 varToPlot2=MSeattleMap$Percent.Bachelor.degree.or.higher
 varToPlot3=MSeattleMap$Median.household.income..dollars.
 ```
-## Get colors and intervals
+### Get colors and intervals
 ```{r}
 numberOfClasses = 3
 colorForScale='YlGnBu'
@@ -166,7 +167,7 @@ intervals <- classIntervals(varToPlot, numberOfClasses,
                             dataPrecision=2)
 colorPallette <- findColours(intervals, colors)
 ```
-## Plot variable1
+### Plot variable1
 ```{r}
 legendText="Population of color in Percent"
 shrinkLegend=0.6
@@ -180,7 +181,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
-## Plot variable2
+### Plot variable2
 ```{r}
 
 numberOfClasses = 3
@@ -204,7 +205,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
-## Plot variable3
+### Plot variable3
 ```{r}
 numberOfClasses = 3
 colorForScale='YlGnBu'
