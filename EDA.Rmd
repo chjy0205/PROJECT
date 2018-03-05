@@ -9,6 +9,7 @@ download.file(dataURL, destfile=temp, mode='wb')
 ```
 #Select data
 ```{r,eval=FALSE}
+library(readxl)
 AreaAcre=read_excel(temp,1,na='.')[,c(1:7,8)]
 AreaAcre=as.data.frame(AreaAcre)
 names(AreaAcre)

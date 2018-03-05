@@ -9,7 +9,7 @@ output:
 # Univariate analysis
 ### Get demographic data from community report
 The community data come from seattle government open data portal, which contain census results of 52 communities in seattle in 2013.
-```{r, }
+```{r }
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
 ### Verify data types
@@ -64,6 +64,8 @@ histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
 ```
 
 # Clustering
+I try to cluster the communities based on their median income, degree and percentage of people of color.
+From the result we can see that there are three main groups.
 ```{r}
 length(community$Community.Reporting.Area.Name)==length(unique(community$Community.Reporting.Area.Name))
 
@@ -77,12 +79,11 @@ incoSimi=daisy(community[,c(11,15,21)],metric = "euclidean",
 incoClus=hclust(incoSimi,method = 'average')
 plot(incoClus,cex=0.5)
 
-plot(incoClus,cex=0.3)
-rect.hclust(incoClus, k = 3,border = c('orange','blue','red'))
 ```
 
 
 # Linear Regression
+This part tests the correlation among median income(Y variable), degree and population of color(X variables).
 ### Check the data
 ```{r}
 hist(community$Median.household.income..dollars.)
@@ -111,20 +112,26 @@ LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Populati
 summary(LinRegINCOME)
 ```
 ### Regression of income and percent population of color
+The results above shows that the coefficient of two X variables are not significant enough because there is strong correlations between degree and population of color percent. Thus, I run regression of single X variable.
 ```{r}
 LinRegINCOME1=lm(community$Median.household.income..dollars.~Percent.of.Population.of.Color, data=community)
 summary(LinRegINCOME1)
 ```
+This result is statistically significant which indicates that holding all other factors constant, one percent increase in percent of population of color is associated with $642.2 decrease in median household income.
+
 ### Regression of income and percent bachelor degree or higher
 ```{r}
 LinRegINCOME2=lm(community$Median.household.income..dollars.~Percent.Bachelor.degree.or.higher, data=community)
 summary(LinRegINCOME2)
 ```
+This result is statistically significant which indicates that holding all other factors constant, one percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
+
 ### Regression of degree and population of color
 ```{r}
 LinRegINCOME3=lm(community$Percent.Bachelor.degree.or.higher~Percent.of.Population.of.Color, data=community)
 summary(LinRegINCOME3)
 ```
+This result is statistically significant which indicates that holding all other factors constant, one percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
 
 # Map
 ```{r}
