@@ -1,24 +1,23 @@
 ---
 title: "R Notebook"
 output:
-  pdf_document: default
+  html_document:
+    df_print: paged
   html_notebook: default
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 # Univariate analysis
 ### Get demographic data from community report
-```{r}
+The community data come from seattle government open data portal, which contain census results of 52 communities in seattle in 2013.
+```{r, }
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
 ### Verify data types
 ```{r}
 str(community)
 ```
-### Univariate data analysis
 ### Centrality
+It is noticeable that there is a huge gap between minimum median household income and maximum one. My following analysis explores the potential causes of this situation.
 ```{r}
 summary(community$Median.household.income..dollars.)
 ```
