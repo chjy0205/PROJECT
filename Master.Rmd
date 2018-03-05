@@ -110,6 +110,21 @@ LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Populati
 
 summary(LinRegINCOME)
 ```
+### Regression of income and percent population of color
+```{r}
+LinRegINCOME1=lm(community$Median.household.income..dollars.~Percent.of.Population.of.Color, data=community)
+summary(LinRegINCOME1)
+```
+### Regression of income and percent bachelor degree or higher
+```{r}
+LinRegINCOME2=lm(community$Median.household.income..dollars.~Percent.Bachelor.degree.or.higher, data=community)
+summary(LinRegINCOME2)
+```
+### Regression of degree and population of color
+```{r}
+LinRegINCOME3=lm(community$Percent.Bachelor.degree.or.higher~Percent.of.Population.of.Color, data=community)
+summary(LinRegINCOME3)
+```
 
 # Map
 ```{r}
