@@ -84,10 +84,12 @@ plot(incoClus,cex=0.5)
 
 # Linear Regression
 This part tests the correlation among median income(Y variable), degree and population of color(X variables).
+
 ### Check the data
 ```{r}
 hist(community$Median.household.income..dollars.)
 ```
+
 ### Verify that each variable in X has a linear relationship with Y.
 ```{r}
 explanans=names(community)[c(11,15)]
@@ -160,6 +162,7 @@ nrow(MSeattleMap)
 plot(SeattleMap, col='black')
 plot(MSeattleMap, col='pink',border='grey',add=T)
 ```
+
 ### Define the input
 ```{r}
 library(RColorBrewer)
@@ -192,6 +195,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+
 Population of color are mainly distributed in the south part of Seattle.
 
 ### Plot variable2
@@ -218,6 +222,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+
 Communities in the north Seattle have higher ratio of residents holding bachelor degree or higher. Compared with last plot, south Seattle communities have much lower ratios of bachelor degree or higher residents.
 
 ### Plot variable3
@@ -243,6 +248,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+
 The median household income roughly obey the trend showed in last two plots. Higher median household income appears more in north Seattle. South Seattle communities often have lower median household income.
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
