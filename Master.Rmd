@@ -136,12 +136,16 @@ This result is statistically significant which indicates that holding all other 
 # Map
 It is more obvious to see the distribution of three variables on the map.
 ```{r}
+compressedMap="https://github.com/chjy0205/PROJECT/raw/master/Neighborhoods.zip"
+library(utils)
+temp=tempfile()
+download.file(compressedMap, temp)
+unzip(temp)
+
 (maps=list.files(pattern = 'shp'))
 
 library(rgdal)
 SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
-
-
 ```
 ### Merge two tables
 ```{r}
