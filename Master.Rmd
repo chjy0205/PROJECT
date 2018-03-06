@@ -238,7 +238,7 @@ colorPallette <- findColours(intervals, colors)
 
 legendText="Median household income in dollar"
 shrinkLegend=0.6
-title="Median income in Seattle 2013"
+title="Median household income in Seattle 2013"
 
 plot(SeattleMap,col='grey',border='white',main=title)
 plot(MSeattleMap, col = colorPallette,border='grey',add=T)
