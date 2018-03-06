@@ -1,37 +1,40 @@
 ---
-title: "R Notebook"
+title: "Factors affecting household income"
 output:
   html_document:
     df_print: paged
   html_notebook: default
 ---
+###By Kevin Chen
+This analysis uses Seattle Census data to explore the factors which may affect the household income. Moreover, the analysis aims to quantify the correlation and present the geographical distribution of these variables on map.
 
-# Univariate analysis
-### Get demographic data from community report
+## Univariate analysis
+* Get demographic data from community report
 The community data come from seattle government open data portal, which contain census results of 53 communities in seattle in 2013.
 ```{r }
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
-### Verify data types
+* Verify data types
 ```{r}
 str(community)
 ```
-### Centrality
+* Centrality
+
 It is noticeable that there is a huge gap between minimum median household income and maximum one. My following analysis explores the potential causes of this situation.
 ```{r}
 summary(community$Median.household.income..dollars.)
 ```
-### Dispersion
+* Dispersion
 ```{r}
 library(moments)
 sd(community$Median.household.income..dollars.,na.rm= T)
 sd(community$Median.household.income..dollars.,na.rm =T)/mean(community$Median.household.income..dollars.,na.rm =T)
 ```
-### Skewness
+* Skewness
 ```{r}
 skewness(community$Median.household.income..dollars.,na.rm=T)
 ```
-### Kurtosis
+* Kurtosis
 ```{r}
 kurtosis(community$Median.household.income..dollars.,na.rm = T)
 
@@ -63,7 +66,8 @@ histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
                                    values = c(median = "blue", mean = "red"))
 ```
 
-# Clustering
+* Clustering
+
 I try to cluster the communities based on their median income, degree and percentage of people of color.
 ```{r}
 length(community$Community.Reporting.Area.Name)==length(unique(community$Community.Reporting.Area.Name))
@@ -79,20 +83,19 @@ incoClus=hclust(incoSimi,method = 'average')
 plot(incoClus,cex=0.5)
 
 ```
-
-### Use 3 groups
+Use 3 groups
 ```{r}
 plot(incoClus,cex=0.3)
 rect.hclust(incoClus, k = 3,border = c('orange','blue','red'))
 ```
 
-### Use 4 groups
+Use 4 groups
 ```{r}
 plot(incoClus,cex=0.3)
 rect.hclust(incoClus, k = 4,border = c('orange','blue','red','green'))
 ```
 
-### Find out units of analysis which are difficult to cluster
+Find out units of analysis which are difficult to cluster
 ```{r}
 length(community$Community.Reporting.Area.Name)=length(unique(community$Community.Reporting.Area.Name))
 
@@ -118,15 +121,15 @@ intersect(row.names(bad4),row.names(bad3))
 ```
 
 
-# Linear Regression
+## Linear Regression
 This part tests the correlation among median income(Y variable), degree and population of color(X variables).
 
-### Check the data
+* Check the data
 ```{r}
 hist(community$Median.household.income..dollars.)
 ```
 
-### Verify that each variable in X has a linear relationship with Y.
+* Verify that each variable in X has a linear relationship with Y.
 ```{r}
 explanans=names(community)[c(11,15)]
 for (x in explanans){
@@ -135,15 +138,15 @@ for (x in explanans){
     print(paste("Pearson:",p$estimate," - Is significative?",p$p.value<0.05))
 }
 ```
-### Check the correlation between each pair of X variables.
+* Check the correlation between each pair of X variables.
 ```{r}
 cor(community[explanans])
 ```
-### Set the row names with the community names.
+* Set the row names with the community names.
 ```{r}
 row.names(community)=community$Community.Reporting.Area.Name
 ```
-### Request a linear regression model and check the detailed result.
+* Request a linear regression model and check the detailed result.
 ```{r}
 LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Population.of.Color + Percent.Bachelor.degree.or.higher, data = community)
 
@@ -171,7 +174,7 @@ summary(LinRegINCOME3)
 ```
 This result is statistically significant which indicates that holding all other factors constant, one percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
 
-### Adjusted R square
+* Adjusted R square
 ```{r}
 summary(LinRegINCOME)$adj.r.squared
 summary(LinRegINCOME1)$adj.r.squared
@@ -181,7 +184,7 @@ summary(LinRegINCOME3)$adj.r.squared
 
 We can say that there are correlations between median household income and degree/race percent. However, The adjusted R square indicates that the regression models are not persuasive enough.
 
-# Map
+## Map
 It is more obvious to see the distribution of three variables on the map.
 ```{r}
 compressedMap="https://github.com/chjy0205/PROJECT/raw/master/Neighborhoods.zip"
@@ -195,7 +198,7 @@ unzip(temp)
 library(rgdal)
 SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
 ```
-### Merge two tables
+* Merge two tables
 ```{r}
 str(SeattleMap$S_HOOD)
 str(community$Community.Reporting.Area.Name)
@@ -209,7 +212,7 @@ plot(SeattleMap, col='black')
 plot(MSeattleMap, col='pink',border='grey',add=T)
 ```
 
-### Define the input
+* Define the input
 ```{r}
 library(RColorBrewer)
 library(classInt)
@@ -217,7 +220,7 @@ varToPlot=MSeattleMap$Percent.of.Population.of.Color
 varToPlot2=MSeattleMap$Percent.Bachelor.degree.or.higher
 varToPlot3=MSeattleMap$Median.household.income..dollars.
 ```
-### Get colors and intervals
+* Get colors and intervals
 ```{r}
 numberOfClasses = 3
 colorForScale='YlGnBu'
