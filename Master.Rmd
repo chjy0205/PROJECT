@@ -8,7 +8,7 @@ output:
 
 # Univariate analysis
 ### Get demographic data from community report
-The community data come from seattle government open data portal, which contain census results of 52 communities in seattle in 2013.
+The community data come from seattle government open data portal, which contain census results of 53 communities in seattle in 2013.
 ```{r }
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
@@ -65,7 +65,6 @@ histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
 
 # Clustering
 I try to cluster the communities based on their median income, degree and percentage of people of color.
-From the result we can see that there are three main groups.
 ```{r}
 length(community$Community.Reporting.Area.Name)==length(unique(community$Community.Reporting.Area.Name))
 
@@ -79,6 +78,43 @@ incoSimi=daisy(community[,c(11,15,21)],metric = "euclidean",
 incoClus=hclust(incoSimi,method = 'average')
 plot(incoClus,cex=0.5)
 
+```
+
+### Use 3 groups
+```{r}
+plot(incoClus,cex=0.3)
+rect.hclust(incoClus, k = 3,border = c('orange','blue','red'))
+```
+
+### Use 4 groups
+```{r}
+plot(incoClus,cex=0.3)
+rect.hclust(incoClus, k = 4,border = c('orange','blue','red','green'))
+```
+
+### Find out units of analysis which are difficult to cluster
+```{r}
+length(community$Community.Reporting.Area.Name)=length(unique(community$Community.Reporting.Area.Name))
+
+row.names(community)=community$Community.Reporting.Area.Name
+
+str(community[,c(11,15,21)])
+
+library(cluster)
+incoSimi=daisy(community[,c(11,15,21)],metric="euclidean",
+               stand=TRUE)
+
+demsil4=silhouette(cutree(incoClus, k = 4), incoSimi)
+clust4solution=data.frame(matrix(demsil4,ncol = 3,dimnames =dimnames(demsil4)))
+row.names(clust4solution)=community$Community.Reporting.Area.Name
+(bad4=clust4solution[clust4solution$sil_width<0,])
+
+demsil3=silhouette(cutree(incoClus, k = 3), incoSimi)
+clust3solution=data.frame(matrix(demsil4,ncol = 3,dimnames =dimnames(demsil3)))
+row.names(clust4solution)=community$Community.Reporting.Area.Name
+(bad3=clust4solution[clust4solution$sil_width<0,])
+
+intersect(row.names(bad4),row.names(bad3))
 ```
 
 
@@ -143,6 +179,7 @@ summary(LinRegINCOME2)$adj.r.squared
 summary(LinRegINCOME3)$adj.r.squared
 ```
 
+We can say that there are correlations between median household income and degree/race percent. However, The adjusted R square indicates that the regression models are not persuasive enough.
 
 # Map
 It is more obvious to see the distribution of three variables on the map.
@@ -258,7 +295,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        title=legendText)
 ```
 
-The median household income roughly obey the trend showed in last two plots. Higher median household income appears more in north Seattle. South Seattle communities often have lower median household income.
+The median household income roughly obey the trend showed in last two plots. Higher median household income communities appear more in north Seattle. South Seattle communities often have lower median household income.
 
 
 
