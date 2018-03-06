@@ -6,7 +6,7 @@ output:
   html_notebook: default
 ---
 ###By Kevin Chen
-This analysis uses Seattle Census data to explore the factors which may affect the household income. Moreover, the analysis aims to quantify the correlation and present the geographical distribution of these variables on map.
+This analysis uses Seattle Census data to explore the factors which may affect the household income. The analysis aims to quantify the correlation and present the geographical distribution of these variables on map.
 
 ## Univariate analysis
 * Get demographic data from community report
