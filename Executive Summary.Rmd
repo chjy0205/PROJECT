@@ -1,0 +1,152 @@
+---
+title: "Exploratory Data Analysis of Factors Affecting Median Household Income in Seattle"
+output: pdf_document
+---
+**Kevin Chen, Evans School of Public Policy & Governance**  
+**March 11, 2018**
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+This analysis uses census data in 2013 conducted by Seattle City government to explore factors which may affect median household income.  
+
+# Data description
+The analysis focuses on three main variables in the data set:
+1) Median household income
+2) Percent population of color
+3) Percent population with bachelor degree or higher.
+
+# Findings
+
+## Regression model
+I build three regression models based on the following combinations:
+1) Median household income and Percent population of color
+2) Median household income and Percent population with bachelor degree or higher
+3) Percent population of color and Percent population with bachelor degree or higher.
+
+## Regression results
+
+```{r, echo=FALSE,  message=FALSE, warning=FALSE, include=FALSE}
+community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
+explanans=names(community)[c(11,15)]
+for (x in explanans){
+    par=cbind(community[,x],community$Median.household.income..dollars.)
+    p=cor.test(community[,x],community$Median.household.income..dollars.)
+    print(paste("Pearson:",p$estimate," - Is significative?",p$p.value<0.05))
+}
+
+row.names(community)=community$Community.Reporting.Area.Name
+LinRegINCOME1=lm(community$Median.household.income..dollars.~Percent.of.Population.of.Color, data=community)
+summary(LinRegINCOME1)
+
+LinRegINCOME2=lm(community$Median.household.income..dollars.~Percent.Bachelor.degree.or.higher, data=community)
+summary(LinRegINCOME2)
+
+LinRegINCOME3=lm(community$Percent.Bachelor.degree.or.higher~Percent.of.Population.of.Color, data=community)
+summary(LinRegINCOME3)
+```
+Holding all other factors constant, one percent increase in percent of population of color is associated with $642.2 decrease in median household income.
+
+One percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
+
+One percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
+
+## Map of the distribution of three variables
+
+```{r, echo=FALSE,  message=FALSE, warning=FALSE, include=FALSE}
+compressedMap="https://github.com/chjy0205/PROJECT/raw/master/Neighborhoods.zip"
+library(utils)
+temp=tempfile()
+download.file(compressedMap, temp)
+unzip(temp)
+
+(maps=list.files(pattern = 'shp'))
+
+library(rgdal)
+SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
+
+MSeattleMap=merge(SeattleMap,community, by.x='S_HOOD', by.y='Community.Reporting.Area.Name',all.x=F)
+nrow(MSeattleMap)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(RColorBrewer)
+library(classInt)
+varToPlot=MSeattleMap$Percent.of.Population.of.Color
+varToPlot2=MSeattleMap$Percent.Bachelor.degree.or.higher
+varToPlot3=MSeattleMap$Median.household.income..dollars.
+
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+```
+
+### Map1
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+legendText="Population of color in Percent"
+shrinkLegend=0.6
+title="Population of color in Percent in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
+
+### Map2
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot2, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+
+
+legendText="Bachelor Degree or higher in Percent"
+shrinkLegend=0.6
+title="Population with bachelor degree or higher in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
+
+### Map3
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+numberOfClasses = 3
+colorForScale='YlGnBu'
+colors = brewer.pal(numberOfClasses, colorForScale)
+intervals <- classIntervals(varToPlot3, numberOfClasses, 
+                            style = "quantile",
+                            dataPrecision=2)
+colorPallette <- findColours(intervals, colors)
+
+
+legendText="Median household income in dollar"
+shrinkLegend=0.6
+title="Median household income in Seattle 2013"
+
+plot(SeattleMap,col='grey',border='white',main=title)
+plot(MSeattleMap, col = colorPallette,border='grey',add=T)
+
+legend('topright', legend = names(attr(colorPallette, "table")), 
+       fill = attr(colorPallette, "palette"), cex = shrinkLegend, 
+       bty = "n",
+       title=legendText)
+```
+
