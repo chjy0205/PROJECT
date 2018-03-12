@@ -1,5 +1,5 @@
 ---
-title: "Factors affecting household income in Seattle"
+title: "Exploratory Data Analysis of Factors Affecting Median Household Income in Seattle"
 output:
   html_document:
     df_print: paged
@@ -7,10 +7,19 @@ output:
   pdf_document: default
 ---
 ###By Kevin Chen
+
 This analysis uses Seattle Census data to explore the factors which may affect the household income. The analysis aims to quantify the correlation and present the geographical distribution of these variables on map.
 
-## Univariate analysis
+## Problem
+
+----
+
+The median household income in Seattle is unequally distributed in communities. The initial guess is that race and education would be the factors affecting household income.
+ 
+### 1. Univariate analysis
+
 * Get demographic data from community report
+
 The community data come from seattle government open data portal, which contain census results of 53 communities in seattle in 2013.
 ```{r }
 community=read.csv('https://raw.githubusercontent.com/chjy0205/PROJECT/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
@@ -32,6 +41,8 @@ sd(community$Median.household.income..dollars.,na.rm= T)
 sd(community$Median.household.income..dollars.,na.rm =T)/mean(community$Median.household.income..dollars.,na.rm =T)
 ```
 * Skewness
+
+The distribution of median household income is close to normal distribution.
 ```{r}
 skewness(community$Median.household.income..dollars.,na.rm=T)
 ```
@@ -67,9 +78,9 @@ histAndNormal + geom_vline(aes(xintercept = mnVar,colour="mean"),
                                    values = c(median = "blue", mean = "red"))
 ```
 
-* Clustering
+### 2. Clustering
 
-I try to cluster the communities based on their median income, degree and percentage of people of color.
+I try to cluster the communities based on their median income, degree and percentage of people of color. We could see three main groups in clustering which indicates that race and education level do have correlations with household income.
 ```{r}
 length(community$Community.Reporting.Area.Name)==length(unique(community$Community.Reporting.Area.Name))
 
@@ -84,19 +95,19 @@ incoClus=hclust(incoSimi,method = 'average')
 plot(incoClus,cex=0.5)
 
 ```
-Use 3 groups
+* Use 3 groups
 ```{r}
 plot(incoClus,cex=0.3)
 rect.hclust(incoClus, k = 3,border = c('orange','blue','red'))
 ```
 
-Use 4 groups
+* Use 4 groups
 ```{r}
 plot(incoClus,cex=0.3)
 rect.hclust(incoClus, k = 4,border = c('orange','blue','red','green'))
 ```
 
-Find out units of analysis which are difficult to cluster
+* Find out units of analysis which are difficult to cluster
 ```{r}
 length(community$Community.Reporting.Area.Name)=length(unique(community$Community.Reporting.Area.Name))
 
@@ -122,8 +133,9 @@ intersect(row.names(bad4),row.names(bad3))
 ```
 
 
-## Linear Regression
-This part tests the correlation among median income(Y variable), degree and population of color(X variables).
+### 3. Linear Regression
+
+This part tests the correlation among median income(Y variable), degree and population of color(X variables). Regression also serves as the main part of data analysis.
 
 * Check the data
 ```{r}
@@ -153,7 +165,8 @@ LinRegINCOME=lm(community$Median.household.income..dollars.~ Percent.of.Populati
 
 summary(LinRegINCOME)
 ```
-### Regression of income and percent population of color
+* Regression of income and percent population of color
+
 The results above shows that the coefficient of two X variables are not significant enough because there is strong correlations between degree and population of color percent. Thus, I run regression of single X variable.
 ```{r}
 LinRegINCOME1=lm(community$Median.household.income..dollars.~Percent.of.Population.of.Color, data=community)
@@ -161,14 +174,14 @@ summary(LinRegINCOME1)
 ```
 This result is statistically significant which indicates that holding all other factors constant, one percent increase in percent of population of color is associated with $642.2 decrease in median household income.
 
-### Regression of income and percent bachelor degree or higher
+* Regression of income and percent bachelor degree or higher
 ```{r}
 LinRegINCOME2=lm(community$Median.household.income..dollars.~Percent.Bachelor.degree.or.higher, data=community)
 summary(LinRegINCOME2)
 ```
 This result is statistically significant which indicates that holding all other factors constant, one percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
 
-### Regression of degree and population of color
+* Regression of degree and population of color
 ```{r}
 LinRegINCOME3=lm(community$Percent.Bachelor.degree.or.higher~Percent.of.Population.of.Color, data=community)
 summary(LinRegINCOME3)
@@ -185,7 +198,8 @@ summary(LinRegINCOME3)$adj.r.squared
 
 We can say that there are correlations between median household income and degree/race percent. However, The adjusted R square indicates that the regression models are not persuasive enough.
 
-## Map
+### 4. Map
+
 It is more obvious to see the distribution of three variables on the map.
 ```{r}
 compressedMap="https://github.com/chjy0205/PROJECT/raw/master/Neighborhoods.zip"
@@ -213,6 +227,8 @@ plot(SeattleMap, col='black')
 plot(MSeattleMap, col='pink',border='grey',add=T)
 ```
 
+Due to problem in getting the suitable map for the data set, there are a lot of missing values in merged data set.
+
 * Define the input
 ```{r}
 library(RColorBrewer)
@@ -231,7 +247,7 @@ intervals <- classIntervals(varToPlot, numberOfClasses,
                             dataPrecision=2)
 colorPallette <- findColours(intervals, colors)
 ```
-### Plot variable1
+* Plot variable1
 ```{r}
 legendText="Population of color in Percent"
 shrinkLegend=0.6
@@ -248,7 +264,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
 
 Population of color are mainly distributed in the south part of Seattle.
 
-### Plot variable2
+* Plot variable2
 ```{r}
 
 numberOfClasses = 3
@@ -275,7 +291,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
 
 Communities in the north Seattle have higher ratio of residents holding bachelor degree or higher. Compared with last plot, south Seattle communities have much lower ratios of bachelor degree or higher residents.
 
-### Plot variable3
+* Plot variable3
 ```{r}
 numberOfClasses = 3
 colorForScale='YlGnBu'
@@ -301,5 +317,24 @@ legend('topright', legend = names(attr(colorPallette, "table")),
 
 The median household income roughly obey the trend showed in last two plots. Higher median household income communities appear more in north Seattle. South Seattle communities often have lower median household income.
 
+## Conclusion
 
+----
+
+The regressions of three combinations all show statistically significant results:
+
+1) One percent increase in population of color is associated with $642.2 decrease in median household income.
+
+2) One percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
+
+3) One percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
+The regression results prove that there is strong correlations between household income and race/education. Also, education has strong correlation with race.
+
+## Recommendation
+
+----
+
+There are still large gaps between population of color and white. Population of color are more likely to hold lower degree and earn less money.
+
+Thus, I recommend that city of Seattle shouold put more resources in improving the education equity and average salary for population of color.
 
