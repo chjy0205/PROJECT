@@ -133,13 +133,13 @@ $(document).ready(function () {
 <ul>
 <li>Get demographic data from community report The community data come from seattle government open data portal, which contain census results of 53 communities in seattle in 2013.</li>
 </ul>
-<pre class="r"><code>community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)</code></pre>
+<pre class="r"><code>community=read.csv('https://raw.githubusercontent.com/chjy0205/PROJECT/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)</code></pre>
 <ul>
 <li>Verify data types</li>
 </ul>
 <pre class="r"><code>str(community)</code></pre>
 <pre><code>## 'data.frame':    53 obs. of  26 variables:
-##  $ &lt;U+00EF&gt;&lt;U+00BB&gt;&lt;U+00BF&gt;OBJECTID                                                                   : int  44 24 21 8 9 36 1 20 50 41 ...
+##  $ 锘縊BJECTID                                                                   : int  44 24 21 8 9 36 1 20 50 41 ...
 ##  $ CRA.ID                                                                        : num  1.4 1.1 10.4 3.5 13.1 9.1 6.2 11.3 8.3 5.3 ...
 ##  $ Community.Reporting.Area.Name                                                 : chr  &quot;Alki&quot; &quot;Arbor Heights&quot; &quot;Adams&quot; &quot;Mid-Beacon Hill&quot; ...
 ##  $ Area.Acres                                                                    : num  898 786 493 841 176 ...
@@ -443,10 +443,10 @@ unzip(temp)
 <pre><code>## rgdal: version: 1.2-16, (SVN revision 701)
 ##  Geospatial Data Abstraction Library extensions to R successfully loaded
 ##  Loaded GDAL runtime: GDAL 2.2.0, released 2017/04/28
-##  Path to GDAL shared files: D:/Program Files/R/R-3.4.3/library/rgdal/gdal
+##  Path to GDAL shared files: d:/Program Files/R/R-3.4.3/library/rgdal/gdal
 ##  GDAL binary built with GEOS: TRUE 
 ##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-##  Path to PROJ.4 shared files: D:/Program Files/R/R-3.4.3/library/rgdal/proj
+##  Path to PROJ.4 shared files: d:/Program Files/R/R-3.4.3/library/rgdal/proj
 ##  Linking to sp version: 1.2-7</code></pre>
 <pre class="r"><code>SeattleMap &lt;- rgdal::readOGR(&quot;Neighborhoods.shp&quot;,stringsAsFactors=F)</code></pre>
 <pre><code>## OGR data source with driver: ESRI Shapefile 

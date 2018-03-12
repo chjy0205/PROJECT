@@ -4,6 +4,7 @@ output:
   html_document:
     df_print: paged
   html_notebook: default
+  pdf_document: default
 ---
 ###By Kevin Chen
 This analysis uses Seattle Census data to explore the factors which may affect the household income. The analysis aims to quantify the correlation and present the geographical distribution of these variables on map.
@@ -12,7 +13,7 @@ This analysis uses Seattle Census data to explore the factors which may affect t
 * Get demographic data from community report
 The community data come from seattle government open data portal, which contain census results of 53 communities in seattle in 2013.
 ```{r }
-community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
+community=read.csv('https://raw.githubusercontent.com/chjy0205/PROJECT/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 ```
 * Verify data types
 ```{r}
