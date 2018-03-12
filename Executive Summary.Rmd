@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Introduction
-This analysis uses census data in 2013 conducted by Seattle City government to explore factors which may affect median household income.  
+This analysis uses census data in 2013 conducted by Seattle City government to explore factors which may affect median household income.
 
 # Data description
 The analysis focuses on three main variables in the data set:
@@ -22,12 +22,12 @@ The analysis focuses on three main variables in the data set:
 
 ## Regression model
 I build three regression models based on the following combinations:
+
 1) Median household income and Percent population of color
 2) Median household income and Percent population with bachelor degree or higher
 3) Percent population of color and Percent population with bachelor degree or higher.
 
 ## Regression results
-
 ```{r, echo=FALSE,  message=FALSE, warning=FALSE, include=FALSE}
 community=read.csv('https://github.com/chjy0205/data/raw/master/Community%20Reporting%20Areas.csv',stringsAsFactors = F)
 explanans=names(community)[c(11,15)]
@@ -47,14 +47,16 @@ summary(LinRegINCOME2)
 LinRegINCOME3=lm(community$Percent.Bachelor.degree.or.higher~Percent.of.Population.of.Color, data=community)
 summary(LinRegINCOME3)
 ```
-Holding all other factors constant, one percent increase in percent of population of color is associated with $642.2 decrease in median household income.
 
-One percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
+The regressions of three combinations all show statistically significant results:
 
-One percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
+1) Holding all other factors constant, one percent increase in percent of population of color is associated with $642.2 decrease in median household income.
+
+2) One percent increase of population with bachelor degree or higher is associated with $851.3 increase in median household income.
+
+3) One percent increase of population of color is associated with 0.66% decrease in population with bachelor degree or higher.
 
 ## Map of the distribution of three variables
-
 ```{r, echo=FALSE,  message=FALSE, warning=FALSE, include=FALSE}
 compressedMap="https://github.com/chjy0205/PROJECT/raw/master/Neighborhoods.zip"
 library(utils)
@@ -70,6 +72,7 @@ SeattleMap <- rgdal::readOGR("Neighborhoods.shp",stringsAsFactors=F)
 MSeattleMap=merge(SeattleMap,community, by.x='S_HOOD', by.y='Community.Reporting.Area.Name',all.x=F)
 nrow(MSeattleMap)
 ```
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(RColorBrewer)
@@ -88,7 +91,7 @@ colorPallette <- findColours(intervals, colors)
 ```
 
 ### Map1
-```{r,echo=FALSE, message=FALSE, warning=FALSE}
+```{r,echo=FALSE, message=FALSE, warning=FALSE, height=3.5}
 legendText="Population of color in Percent"
 shrinkLegend=0.6
 title="Population of color in Percent in Seattle 2013"
@@ -101,6 +104,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+Population of color are mainly distributed in the south part of Seattle.
 
 ### Map2
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
@@ -125,6 +129,7 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+Communities in the north Seattle have higher ratio of residents holding bachelor degree or higher. Compared with last plot, south Seattle communities have much lower ratios of bachelor degree or higher residents.
 
 ### Map3
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
@@ -149,4 +154,9 @@ legend('topright', legend = names(attr(colorPallette, "table")),
        bty = "n",
        title=legendText)
 ```
+The median household income roughly obey the trend showed in last two plots. Higher median household income communities appear more in north Seattle. South Seattle communities often have lower median household income.
 
+# Recommendations
+There are still large gap between population of color and white. Population of color are more likely to hold lower degree and earn less money.
+
+Thus, I recommend city of Seattle put more resources in improving the education equity and salary level for population of color.
